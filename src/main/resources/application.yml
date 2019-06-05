@@ -1,0 +1,17 @@
+wechat: 
+    cp: 
+      corpid: wwc21e247fa2b93f01
+      providerSecret: mvhyQIWWugI1HzKOOz-pX9_Rvv8ZP1YADpl-hjiTZl2StCrDHal5pFxslm8hBjun
+      suiteInfo: 
+      - suiteId: ww5b5fc5fcf496fade
+        suiteSecret: 4-6xclSBOZLLwN6MK_Q32d0OM_W4v9qbhvjrhqs39ms
+        aeskey: gbcPlp0MPADluQhunM1sRBYb4uNHdvWDFzp42t4g4he
+        token: nlKpm35hbCtk1kGOJrGbCa
+        oauth2RedirectUri: http://holer65530.wdom.net/wx/cp/oauth/normalOauth?
+      - suiteId: testSuite2
+        suiteSecret: testSuiteSecret2
+        aesKey: testAesKey 
+        token: testToken
+        oauth2RedirectUri: testOauth2RedirectUri
+server:
+  post: 8080
