@@ -43,10 +43,11 @@ public class InstructCallbackController {
 
 	/**
 	 * 此处用于微信服务器的回调URL响应处理
-	 * @param signature
-	 * @param timestamp
-	 * @param nonce
-	 * @param echostr
+	 * @param suiteId 第三方应用suiteId
+	 * @param signature 签名
+	 * @param timestamp 时间戳
+	 * @param nonce 随机数
+	 * @param echostr 加密串（包含需要返回的明文内容，用以给微信验证请求地址合法性）
 	 * @return
 	 * @throws AesException
 	 */
@@ -77,10 +78,11 @@ public class InstructCallbackController {
 
 	/**
 	 * 此方法用于消息事件回调解析
-	 * @param requestBody
-	 * @param signature
-	 * @param timestamp
-	 * @param nonce
+	 * @param suiteId 第三方应用suiteId
+	 * @param requestBody 回调业务数据
+	 * @param signature 签名
+	 * @param timestamp 时间戳
+	 * @param nonce 随机数
 	 * @return
 	 * @throws AesException
 	 */
@@ -107,7 +109,7 @@ public class InstructCallbackController {
 		log.info("\n消息解密后内容为：\n{} ", JSONUtil.toJsonStr(inMessage));
 		
 		/*
-		 * 事件消息解析；此处为测试代码，后续会交给处理器执行
+		 * 事件消息解析；此处为测试代码，实际业务下应当重写不同类型消息的处理流程
 		 */
 		dealMessage(suiteId, inMessage);
 		
@@ -139,6 +141,7 @@ public class InstructCallbackController {
 								log.info("打印storage信息："+ JSONUtil.toJsonStr(wechatCommonApi.getConfigStorage().getPermanentInfo(suiteId, perResult.getAuthCorpInfo().getCorpid())));
 							case InfoTypeConstants.CHANGE_AUTH:
 								log.info("授权变更事件，请重新查询授权信息");
+								log.info(suiteId);
 								break;
 							case InfoTypeConstants.CANCEL_AUTH:
 								log.info("取消授权事件，请确认取消授权的用户相关信息");

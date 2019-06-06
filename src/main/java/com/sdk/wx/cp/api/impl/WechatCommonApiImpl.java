@@ -1,6 +1,9 @@
 package com.sdk.wx.cp.api.impl;
 
 import java.io.IOException;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.sdk.wx.cp.api.AppAuthApi;
 import com.sdk.wx.cp.api.WechatCommonApi;
 import com.sdk.wx.cp.bean.GetCorpTokenResult;
@@ -9,6 +12,7 @@ import com.sdk.wx.cp.bean.GetSuiteTokenResult;
 import com.sdk.wx.cp.enums.UrlTypeEnum;
 import com.sdk.wx.cp.storage.ConfigStorage;
 import com.sdk.wx.cp.util.GsonUtil;
+import com.sdk.wx.cp.util.WxErrorUtil;
 
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxError;
@@ -194,7 +198,11 @@ public abstract class WechatCommonApiImpl<H,P> implements WechatCommonApi,Reques
 	      }
 
 	      if (error.getErrorCode() != 0) {
-	        log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
+	        String errorMsg = WxErrorUtil.getErrorMsg(error.getErrorCode());
+	        if(StringUtils.isNotBlank(errorMsg)){
+	        	error.setErrorMsg(errorMsg);
+	        }
+	        log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误码】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog,error.getErrorCode(), error.getErrorMsg());
 	        throw new WxErrorException(error, e);
 	      }
 	      return null;
@@ -257,12 +265,25 @@ public abstract class WechatCommonApiImpl<H,P> implements WechatCommonApi,Reques
 	 * @throws WxErrorException
 	 */
 	protected <T, E> T executeInternal(RequestExecutor<T, E> executor,String uri,String accessToken,UrlTypeEnum uriType, E data) throws WxErrorException {
+		E dataForLog = DataUtils.handleDataWithSecret(data);
 		String uriWithAccessToken = dealUrl(uri,accessToken, uriType);
 		try {
+			log.info("\n【请求地址】: {}\n【请求参数】：{}", uriWithAccessToken, dataForLog);
 			T result = executor.execute(uriWithAccessToken, data);
 			log.info("\n【响应数据】：{}", result);
 			return result;
-		} catch (IOException e) {
+		} catch (WxErrorException e) {
+			WxError error = e.getError();
+			if (error.getErrorCode() != 0) {
+		       String errorMsg = WxErrorUtil.getErrorMsg(error.getErrorCode());
+		       if(StringUtils.isNotBlank(errorMsg)){
+		    	   error.setErrorMsg(errorMsg);
+		       }
+		       log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误码】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog,error.getErrorCode(), error.getErrorMsg());
+		       throw new WxErrorException(error, e);
+		    }
+		    return null;
+		} catch (Exception e) {
 			log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, data, e.getMessage());
 			throw new RuntimeException(e);
 		}

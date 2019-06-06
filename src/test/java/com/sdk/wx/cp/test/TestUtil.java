@@ -20,16 +20,16 @@ public class TestUtil {
 	
 	public GetPermanentCodeResult getPer(){
 		GetPermanentCodeResult result = new GetPermanentCodeResult();
-		result.setAccessToken("Cq4BpQfjv228PZzX9iO8p-nFawtfvVhTC_VsO28G09-TeBeoIQv9r66SL_XYhjpHygWnAB4mjOagXEZ35WMDYwBlZ6286nnuMY6woj0KIM73eaYZ8cGHIUAunA777ctXXaREXi08NefV7csNxzTlqFbjNln5Xp50OWBEjOrLAClejlRt-nJ0BS8y0cIK6JG6mF17fCWFaZf_qNHygQ1dsA");
+		result.setAccessToken("H7RQ3jmx3E0Y6BEfXwM1h5nPgkBIEG4m2e-Nme8McapUY06Pg6GE5LOsY0vcVP21kBvtt73qZs3jiMldzsSKgUsHrXtZBy6-bfW_OoYTZ9S8ljyGdAxJnighVWdE1pvvkTyHviZYVaarsWIEWPLOM8ARXOVPEqCMoZzZYxNzHXOFKC4nWY_Dp6jzy6cXNWQjpI96Bkrh7e36pr1DcEqNg");
 		result.setExpiresIn("7200");
 		AuthCorpInfo auth = result.new AuthCorpInfo();
 		auth.setCorpid("wwc21e247fa2b93f01");
 		result.setAuthCorpInfo(auth);
-		result.setPermanentCode("diQxh0jO0ZUJSuhHFHm4-CXHLeI6aIvKgtyIRPKYx3U");
+		result.setPermanentCode("gjQcwuJXi18sVuxuS-Y91pVPUOa90NP6bqJbobu3hRo");
 		AuthInfo authInfo = result.new AuthInfo();
 		List<Agent> list = new ArrayList<GetPermanentCodeResult.Agent>();
 		Agent agent = result.new Agent();
-		agent.setAgentid("1000022");
+		agent.setAgentid("1000034");
 		list.add(agent);
 		authInfo.setAgent(list);
 		result.setAuthInfo(authInfo);

@@ -18,7 +18,6 @@ import me.chanjar.weixin.common.util.XmlUtils;
  * <pre>
  * 消息事件回调信息实体
  * 数据信息和指令信息都集成在该类中
- * 由于同一个字段在不同场景可能指代的业务类别不同
  * 请在使用消息内容时，配合企业微信第三方文档使用
  * </pre>
  * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/90628

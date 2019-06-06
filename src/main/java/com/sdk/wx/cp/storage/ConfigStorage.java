@@ -8,6 +8,7 @@ import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 
 /**
  * token配置信息管理顶层接口
+ * 可实现该接口，基于内存,db,redis等方式管理token。注意实际使用的时候时候token信息一定要做持久化
  * @author yangtao
  * @date 2019/05/28
  */
@@ -127,6 +128,11 @@ public interface ConfigStorage {
 	 * （不管是否过期，即是否曾经获取过永久授权码）
 	 */
 	boolean isAleadyAuth(String suiteId, String corpId);
+	
+	/**
+	 * 获取素材管理临时文件生成地址
+	 */
+	String getMediaTempPath();
 	
 	ApacheHttpClientBuilder getApacheHttpClientBuilder();
 	

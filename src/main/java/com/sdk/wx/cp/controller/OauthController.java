@@ -2,6 +2,7 @@ package com.sdk.wx.cp.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sdk.wx.cp.api.Oauth2Api;
@@ -52,15 +53,15 @@ public class OauthController {
 	
 	/**
 	 * 普通用户授权登录，企业微信手机端（测试接口）
-	 * @param suiteId(应用的id，请在初始化项目时设置到回调路径中)
+	 * @param suiteId(应用的id，请在初始化项目时设置到第三方应用配置的oauth2RedirectUri中)
 	 * @param code
 	 * @param state
 	 * @return
 	 * @throws WxErrorException
 	 */
-	@RequestMapping("/normalOauth")
-	public String normalOauth(String suiteId,String code,String state) throws WxErrorException{
-		if(StringUtils.isNotBlank(code)){
+	@RequestMapping("/normalOauth/{suiteId}")
+	public String normalOauth(@PathVariable String suiteId,String code,String state) throws WxErrorException{
+		if(!StringUtils.isAnyBlank(code,suiteId)){
 			log.info("拿到code:" + code);
 			wechatCommonApi.initStorage(inMemoryConfigStorage);
 			String url = Oauth2Api.GET_USERINFO_3RD + "suite_access_token=" + wechatCommonApi.getSuiteAccessToken(suiteId)+"&code="+code;
@@ -70,6 +71,7 @@ public class OauthController {
 			//拿到企业微信登录用户信息之后，可以为用户展示第三方功能模块
 			//TODO 
 		}
-		return "未获取到code";
+		log.info("【code】{}\n【suiteId】{}\n",code,suiteId);
+		return "授权信息不完整";
 	}
 }

@@ -31,7 +31,7 @@ public class Oauth2ApiImpl implements Oauth2Api{
 
 	@Override
 	public String authorizationUrl(String suiteId, String state) throws WxErrorException {
-		return authorizationUrl(wechatCommonApi.getConfigStorage().getSuiteStorage(suiteId).getOauth2RedirectUri(),state);
+		return authorizationUrl(suiteId,wechatCommonApi.getConfigStorage().getSuiteStorage("ww5b5fc5fcf496fade").getOauth2RedirectUri(),state);
 	}
 
 	@Override

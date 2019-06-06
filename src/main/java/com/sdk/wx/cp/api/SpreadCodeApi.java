@@ -62,7 +62,7 @@ public interface SpreadCodeApi {
 
 	/**
 	 * <pre>
-	 * 设置授权应用可见范围(该接口可能会有问题，对agentId参数的由来有疑问)
+	 * 设置授权应用可见范围
 	 * methods:GET
 	 * 微信文档地址：https://work.weixin.qq.com/api/doc#90001/90143/90583
 	 * </pre>

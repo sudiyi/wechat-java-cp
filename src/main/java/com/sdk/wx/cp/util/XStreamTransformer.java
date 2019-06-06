@@ -8,6 +8,11 @@ import com.sdk.wx.cp.hander.dto.WechatMessageIn;
 import com.thoughtworks.xstream.XStream;
 import me.chanjar.weixin.common.util.xml.XStreamInitializer;
 
+/**
+ * xml-实体工具类
+ * @author yangtao
+ * @date 2019/06/06
+ */
 @SuppressWarnings("rawtypes")
 public class XStreamTransformer {
 

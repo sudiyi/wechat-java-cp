@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 从配置文件加载的配置信息
+ * 从配置文件加载服务商以及第三方应用的配置信息
  * @author yangtao
  * @date 2019/06/05
  */
@@ -17,6 +17,11 @@ import lombok.Setter;
 @Component
 public class WxCpProperties {
 
+	/**
+	 * 素材下载临时文件地址
+	 */
+	private String mediaTempPath;
+	
 	/**
 	 * 服务商corpId
 	 */

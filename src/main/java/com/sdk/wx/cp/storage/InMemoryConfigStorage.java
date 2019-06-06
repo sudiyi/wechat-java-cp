@@ -1,11 +1,14 @@
 package com.sdk.wx.cp.storage;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.sdk.wx.cp.api.WechatCommonApi;
 import com.sdk.wx.cp.bean.GetPermanentCodeResult;
 import com.sdk.wx.cp.config.WxCpProperties;
 import com.sdk.wx.cp.config.WxCpProperties.SuiteInfo;
@@ -16,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 
 /**
- * 基于内存的 token 及配置信息管理器
+ * 基于内存的 token 及配置信息管理器，应用启动时初始化，同时注入接口执行工具
  * @author yangtao
  * @date 2019/05/28
  */
@@ -26,6 +29,10 @@ public class InMemoryConfigStorage implements ConfigStorage{
 	
 	@Autowired
 	private WxCpProperties properties;
+	
+	
+	@Autowired
+	private WechatCommonApi wechatCommonApi;
 	
 	//******初始配置信息******
 	/**
@@ -37,6 +44,11 @@ public class InMemoryConfigStorage implements ConfigStorage{
 	 * 服务商的密钥
 	 */
 	private String providerSecret;
+	
+	/**
+	 * 素材管理模块临时文件地址
+	 */
+	private String mediaTempPath;
 	
 	/**
 	 * 第三方应用配置信息
@@ -121,7 +133,7 @@ public class InMemoryConfigStorage implements ConfigStorage{
 		 * key:授权企业微信corpId
 		 * value:授权信息
 		 */
-		private Map<String, ConsumerStorage> consumerStorage;
+		private Map<String, ConsumerStorage> consumerStorage = new HashMap<String, InMemoryConfigStorage.ConsumerStorage>();
 		
 		/**
 		 * 更新suiteAccessToken
@@ -303,6 +315,7 @@ public class InMemoryConfigStorage implements ConfigStorage{
 		}
 		this.corpid = properties.getCorpId();
 		this.providerSecret = properties.getProviderSecret();
+		this.mediaTempPath = properties.getMediaTempPath();
 		if(properties.getSuiteInfo() == null || properties.getSuiteInfo().size() <= 0){
 			throw new RuntimeException("内存token管理器初始化失败，未找到第三方应用初始配置信息");
 		}
@@ -316,6 +329,8 @@ public class InMemoryConfigStorage implements ConfigStorage{
 			this.suiteStorageInfo.put(suiteInfo.getSuiteId(), suiteStorage);
 		}
 		log.info("内存token管理器初始化完成，【服务商id】：{}\n【服务商密钥】：{}\n【第三方应用信息】：{}\n",this.corpid,this.providerSecret,GsonUtil.create().toJson(this.suiteStorageInfo));
+		wechatCommonApi.initStorage(this);
+		log.info("公共执行器初始化完成");
 	}
 
 	@Override
@@ -356,4 +371,10 @@ public class InMemoryConfigStorage implements ConfigStorage{
 	public SuiteStorageInfo getSuiteStorage(String suiteId) {
 		return this.suiteStorageInfo.get(suiteId);
 	}
+
+	@Override
+	public String getMediaTempPath() {
+		return mediaTempPath;
+	}
+
 }

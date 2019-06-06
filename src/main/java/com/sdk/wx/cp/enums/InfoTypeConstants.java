@@ -1,7 +1,7 @@
 package com.sdk.wx.cp.enums;
 
 /**
- * 回调信息类别常量 与{@link MsgTypeConstants}为级别
+ * 回调信息类别常量 与{@link MsgTypeConstants}为同级别
  * @author yangtao
  * @date 2019/05/31
  */

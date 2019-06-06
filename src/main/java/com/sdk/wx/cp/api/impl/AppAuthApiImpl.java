@@ -91,7 +91,7 @@ public class AppAuthApiImpl implements AppAuthApi{
 	@Override
 	public GetAdminListResult getAdminList(String suiteId, String corpId) throws WxErrorException {
 		GetAdminListSend getAdminListSend = new GetAdminListSend(corpId, wechatCommonApi.getConfigStorage().getPermanentInfo(suiteId, corpId).getAgentId());
-		String result = wechatCommonApi.post(GET_ADMIN_LIST,UrlTypeEnum.SUITE_ACCESS_TOKEN, corpId, GsonUtil.create().toJson(getAdminListSend));
+		String result = wechatCommonApi.post(GET_ADMIN_LIST,UrlTypeEnum.SUITE_ACCESS_TOKEN, suiteId,corpId, GsonUtil.create().toJson(getAdminListSend));
 		JsonElement tmpJsonElement = new JsonParser().parse(result);
 		return GsonUtil.create().fromJson(tmpJsonElement, GetAdminListResult.class);
 	}

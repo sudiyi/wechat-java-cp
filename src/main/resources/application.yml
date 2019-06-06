@@ -1,5 +1,6 @@
 wechat: 
     cp: 
+      mediaTempPath: E:\\temp
       corpid: wwc21e247fa2b93f01
       providerSecret: mvhyQIWWugI1HzKOOz-pX9_Rvv8ZP1YADpl-hjiTZl2StCrDHal5pFxslm8hBjun
       suiteInfo: 
@@ -7,7 +8,7 @@ wechat:
         suiteSecret: 4-6xclSBOZLLwN6MK_Q32d0OM_W4v9qbhvjrhqs39ms
         aeskey: gbcPlp0MPADluQhunM1sRBYb4uNHdvWDFzp42t4g4he
         token: nlKpm35hbCtk1kGOJrGbCa
-        oauth2RedirectUri: http://holer65530.wdom.net/wx/cp/oauth/normalOauth?
+        oauth2RedirectUri: http://ji65q3.natappfree.cc/wx/cp/oauth/normalOauth/ww5b5fc5fcf496fade?
       - suiteId: testSuite2
         suiteSecret: testSuiteSecret2
         aesKey: testAesKey 
@@ -15,3 +16,11 @@ wechat:
         oauth2RedirectUri: testOauth2RedirectUri
 server:
   post: 8080
+  tomcat: 
+    uri-encoding: UTF-8
+spring: 
+  http: 
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
