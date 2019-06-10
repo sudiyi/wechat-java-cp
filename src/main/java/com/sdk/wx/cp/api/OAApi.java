@@ -21,7 +21,7 @@ public interface OAApi {
 	 * <pre>
 	 * 查询第三方应用审批申请当前状态
 	 * methods:POST
-	 * 接口文档：https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token=ACCESS_TOKEN
+	 * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/91189
 	 * </pre>
 	 * @param suiteId 第三方应用suiteId
 	 * @param corpId 授权企业微信corpId

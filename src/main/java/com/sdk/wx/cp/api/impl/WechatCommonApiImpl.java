@@ -191,9 +191,13 @@ public abstract class WechatCommonApiImpl<H,P> implements WechatCommonApi,Reques
 	    	 * 如果已经确定分别过期的状态码，请根据返回分别做强制过期处理
 	    	 */
 	    	log.info("accessToken过期："+GsonUtil.create().toJson(error));
-	        this.configStorage.expireAccessToken(suiteId, corpId);
+	    	if(!StringUtils.isAnyBlank(suiteId,corpId)){
+	    		this.configStorage.expireAccessToken(suiteId, corpId);
+	    	}
+	        if(StringUtils.isNotBlank(suiteId)){
+	        	this.configStorage.expireSuiteAccessToken(suiteId);
+	        }
 	        this.configStorage.expireProviderAccessToken();
-	        this.configStorage.expireSuiteAccessToken(suiteId);
 	        return execute(executor, uri,corpId,uriType, data);
 	      }
 

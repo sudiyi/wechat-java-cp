@@ -59,8 +59,8 @@ public class GetRegisterInfoResult implements Serializable{
 		/**
 		 * access_token凭证的有效时间（秒）
 		 */
-		@SerializedName("expires_id")
-		private String expiresId;
+		@SerializedName("expires_in")
+		private String expiresIn;
 	}
 	
 	@Data

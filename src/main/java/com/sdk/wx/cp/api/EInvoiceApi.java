@@ -47,12 +47,12 @@ public interface EInvoiceApi {
 	 * methods：POST
 	 * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/90420
 	 * </pre>
+	 * @param suiteId 第三方应用的suiteId
 	 * @param corpId 授权企业微信corpId
 	 * @param invoiceSend 发票id、加密code
-	 * @param url 请求地址，不填使用默认地址
 	 * @return 电子发票信息
 	 */
-	public GetInvoiceInfoResult getInvoiceInfo(String corpId, GetInvoiceInfoSend invoiceSend,String url) throws WxErrorException;
+	public GetInvoiceInfoResult getInvoiceInfo(String suiteId, String corpId, GetInvoiceInfoSend invoiceSend) throws WxErrorException;
 
 	/**
 	 * <pre>
@@ -65,12 +65,12 @@ public interface EInvoiceApi {
 	 * methods：POST
 	 * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/90421
 	 * </pre>
+	 * @param suiteId 第三方应用的suiteId
 	 * @param corpId 授权企业微信corpId
 	 * @param updateStatusSend 更新发票信息
-	 * @param url 请求地址，不填使用默认
 	 * @return 公共返回结果
 	 */
-	public CommonResult updateInvoiceStatus(String corpId, UpdateInvoiceStatusSend updateStatusSend, String url) throws WxErrorException;
+	public CommonResult updateInvoiceStatus(String suiteId, String corpId, UpdateInvoiceStatusSend updateStatusSend) throws WxErrorException;
 	
 	/**
 	 * <pre>
@@ -82,12 +82,12 @@ public interface EInvoiceApi {
 	 * methods:POST
 	 * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/90422
 	 * </pre>
+	 * @param suiteId 第三方应用的suiteId
 	 * @param corpId 授权企业问下corpId
 	 * @param updateBatchSend 批量信息
-	 * @param url 请求地址，不填使用默认地址
 	 * @return 公共返回实体
 	 */
-	public CommonResult updateStatusBatch(String corpId, UpdateStatusBatchSend updateBatchSend, String url) throws WxErrorException;
+	public CommonResult updateStatusBatch(String suiteId, String corpId, UpdateStatusBatchSend updateBatchSend) throws WxErrorException;
 	
 	/**
 	 * <pre>
@@ -97,10 +97,10 @@ public interface EInvoiceApi {
 	 * methods:POST
 	 * 接口文档：https://work.weixin.qq.com/api/doc#90001/90143/90423
 	 * </pre>
+	 * @param suiteId 第三方应用的suiteId
 	 * @param corpId 授权企业微信id
 	 * @param invoiceInfoBatchSend 发票id列表及openid
-	 * @param url 请求地址，不填使用默认
 	 * @return 批量发票信息
 	 */
-	public GetInvoiceInfoBatchResult getInvoiceInfoBatch(String corpId, GetInvoiceInfoBatchSend invoiceInfoBatchSend, String url) throws WxErrorException;
+	public GetInvoiceInfoBatchResult getInvoiceInfoBatch(String suiteId, String corpId, GetInvoiceInfoBatchSend invoiceInfoBatchSend) throws WxErrorException;
 }

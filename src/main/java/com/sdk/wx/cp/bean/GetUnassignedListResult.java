@@ -1,6 +1,7 @@
 package com.sdk.wx.cp.bean;
 
 import java.io.Serializable;
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,11 @@ public class GetUnassignedListResult implements Serializable{
 	private String errcode;
 	
 	private String errmsg;
+	
+	/**
+	 * 离职员工信息
+	 */
+	private List<UnassignedInfo> info;
 	
 	/**
 	 * 	是否是最后一条记录
