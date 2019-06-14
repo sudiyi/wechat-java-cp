@@ -20,7 +20,6 @@ import com.sdk.wx.cp.common.ende.WXBizMsgCrypt;
 import com.sdk.wx.cp.enums.InfoTypeConstants;
 import com.sdk.wx.cp.enums.MsgTypeConstants;
 import com.sdk.wx.cp.hander.dto.WechatMessageIn;
-import com.sdk.wx.cp.storage.InMemoryConfigStorage;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -37,9 +36,6 @@ public class InstructCallbackController {
 
 	@Autowired
 	private WechatCommonApi wechatCommonApi;
-
-	@Autowired
-	private InMemoryConfigStorage inMemoryConfigStorage;
 
 	/**
 	 * 此处用于微信服务器的回调URL响应处理
@@ -62,8 +58,6 @@ public class InstructCallbackController {
 		if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
 			throw new IllegalArgumentException("请求参数非法，请核实!");
 		}
-		//校验url前，初始化token管理器
-		wechatCommonApi.initStorage(inMemoryConfigStorage);
 		//设置token及配置信息到加密工具类
 		WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(wechatCommonApi.getConfigStorage().getToken(suiteId), 
 				wechatCommonApi.getConfigStorage().getAesKey(suiteId), 
@@ -95,15 +89,6 @@ public class InstructCallbackController {
 		log.info(
 				"\n接收微信请求：[requestBody=[{}], msg_signature=[{}], timestamp=[{}], nonce=[{}] ",
 				requestBody, signature, timestamp, nonce);
-		try{
-			/**
-			 * 初始化token管理器，sdk使用基于内存的token管理器。
-			 * 上层应用可以集成token管理器接口，实现自己的token管理器（基于redis,db,memorycache，做token分布式实现等）
-			 */
-			wechatCommonApi.initStorage(inMemoryConfigStorage);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
 		WechatMessageIn inMessage = WechatMessageIn.fromEncryptedXml(suiteId, requestBody, wechatCommonApi.getConfigStorage(),
 				timestamp, nonce, signature);
 		log.info("\n消息解密后内容为：\n{} ", JSONUtil.toJsonStr(inMessage));

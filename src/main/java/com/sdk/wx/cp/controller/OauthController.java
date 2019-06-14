@@ -9,7 +9,6 @@ import com.sdk.wx.cp.api.Oauth2Api;
 import com.sdk.wx.cp.api.WechatCommonApi;
 import com.sdk.wx.cp.bean.GetLoginInfoSend;
 import com.sdk.wx.cp.enums.UrlTypeEnum;
-import com.sdk.wx.cp.storage.InMemoryConfigStorage;
 import com.sdk.wx.cp.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -27,9 +26,6 @@ public class OauthController {
 	@Autowired
 	private WechatCommonApi wechatCommonApi;
 
-	@Autowired
-	private InMemoryConfigStorage inMemoryConfigStorage;
-
 	/**
 	 * 企业微信管理员管理后台跳转(测试接口)
 	 * @param auth_code
@@ -40,7 +36,6 @@ public class OauthController {
 	public String adminOauth(String auth_code) throws WxErrorException{
 		if(StringUtils.isNotBlank(auth_code)){
 			log.info("拿到auth_code:" + auth_code);
-			wechatCommonApi.initStorage(inMemoryConfigStorage);
 			GetLoginInfoSend loginSend = new GetLoginInfoSend(auth_code);
 			String url = Oauth2Api.GET_LOGIN_INFO + "?access_token=" + wechatCommonApi.getProviderAccessToken();
 			//根据企业微信传过来的auth_code，获取管理员信息
@@ -63,7 +58,6 @@ public class OauthController {
 	public String normalOauth(@PathVariable String suiteId,String code,String state) throws WxErrorException{
 		if(!StringUtils.isAnyBlank(code,suiteId)){
 			log.info("拿到code:" + code);
-			wechatCommonApi.initStorage(inMemoryConfigStorage);
 			String url = Oauth2Api.GET_USERINFO_3RD + "suite_access_token=" + wechatCommonApi.getSuiteAccessToken(suiteId)+"&code="+code;
 			//根据企业微信传过来的code，获取管理员信息
 			//scope为snsapi_userinfo或snsapi_privateinfo时，使用code获取用户信息才会返回user_ticket，用以获取用户敏感信息

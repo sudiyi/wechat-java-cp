@@ -17,7 +17,6 @@ import com.sdk.wx.cp.api.WechatCommonApi;
 import com.sdk.wx.cp.api.impl.Oauth2ApiImpl;
 import com.sdk.wx.cp.config.WxCpProperties;
 import com.sdk.wx.cp.config.WxCpProperties.SuiteInfo;
-import com.sdk.wx.cp.storage.InMemoryConfigStorage;
 import com.sdk.wx.cp.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
